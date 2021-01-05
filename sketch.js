@@ -1,5 +1,4 @@
 var PLAY = 1;
-var any;
 var END = 0;
 var gameState = PLAY;
 
@@ -39,17 +38,15 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  var message = "This is a message";
- console.log(message)
   
-  trex = createSprite(50,160,20,50);
+  trex = createSprite(50,height-70,20,50);
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
   
 
   trex.scale = 0.5;
   
-  ground = createSprite(200,180,400,20);
+  ground = createSprite(200,height-70,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
@@ -63,7 +60,7 @@ function setup() {
   gameOver.scale = 0.5;
   restart.scale = 0.5;
   
-  invisibleGround = createSprite(200,190,400,10);
+  invisibleGround = createSprite(200,height-60,400,10);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -72,7 +69,7 @@ function setup() {
 
   
   trex.setCollider("rectangle",0,0,trex.width,trex.height);
-  trex.debug = true
+  trex.debug = false
   
   score = 0;
   
@@ -103,9 +100,10 @@ function draw() {
     }
     
     //jump when the space key is pressed
-    if(keyDown("space")&& trex.y >= 100) {
+    if (touches.length>0 || keyDown("space")&& trex.y >= 100) {
         trex.velocityY = -12;
         jumpSound.play();
+      touches=[];
     }
     
     //add gravity
@@ -172,7 +170,7 @@ function reset(){
 
 function spawnObstacles(){
  if (frameCount % 60 === 0){
-   var obstacle = createSprite(600,165,10,40);
+   var obstacle = createSprite(600,height-70,10,40);
    obstacle.velocityX = -(6 + score/100);
    
     //generate random obstacles
