@@ -50,10 +50,10 @@ function setup() {
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
-  gameOver = createSprite(300,100);
+  gameOver = createSprite(width-70,100);
   gameOver.addImage(gameOverImg);
   
-  restart = createSprite(300,140);
+  restart = createSprite(width-70,140);
   restart.addImage(restartImg);
   
  
@@ -143,7 +143,7 @@ function draw() {
      obstaclesGroup.setVelocityXEach(0);
      cloudsGroup.setVelocityXEach(0);  
      
-  if(mousePressedOver(restart) || keyDown("space")) {
+  if(mousePressedOver(restart) || keyDown("space") || touches.length>0) {
       reset();
     }
 
